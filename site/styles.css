@@ -155,7 +155,7 @@ nav {
 .eyebrow,
 .section-heading span,
 .gallery-heading p,
-.final-cta > p,
+.final-cta > p:not(.final-copy),
 .command-card span {
   margin: 0;
   color: var(--accent);
@@ -519,38 +519,49 @@ code {
 
 .final-cta {
   margin: 60px 64px 0;
-  padding: 70px 60px;
-  border-radius: 8px 8px 0 0;
+  padding: 64px 60px 58px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   background:
-    radial-gradient(120% 140% at 50% 0%, rgba(196, 99, 62, 0.22), transparent 55%),
-    var(--charcoal);
-  color: var(--paper);
+    radial-gradient(120% 140% at 50% 0%, rgba(196, 99, 62, 0.11), transparent 56%),
+    var(--paper-deep);
+  color: var(--ink);
   text-align: center;
 }
 
 .final-cta h2 {
-  max-width: 20ch;
-  margin: 18px auto 28px;
+  max-width: 18ch;
+  margin: 18px auto 0;
   font-size: clamp(40px, 4.7vw, 56px);
   font-weight: 300;
+}
+
+.final-cta .final-copy {
+  max-width: 48ch;
+  margin: 20px auto 28px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.62;
+  text-transform: none;
 }
 
 .final-cta code {
   display: block;
   margin-top: 24px;
-  color: #8a8478;
+  color: #6a6455;
 }
 
 .site-footer {
-  border-top: 0;
+  border-top: 1px solid var(--line);
   border-bottom: 0;
-  background: var(--charcoal);
-  color: #7a7568;
+  background: var(--paper);
+  color: #6a6455;
   font-size: 13px;
 }
 
 .site-footer .brand-name {
-  color: var(--paper);
+  color: var(--ink);
   font-size: 18px;
 }
 
