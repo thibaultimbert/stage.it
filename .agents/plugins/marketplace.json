@@ -1,0 +1,20 @@
+{
+  "name": "shopify-product-photo-agent",
+  "interface": {
+    "displayName": "Shopify Product Photo Agent"
+  },
+  "plugins": [
+    {
+      "name": "shopify-product-photo-agent",
+      "source": {
+        "source": "local",
+        "path": "./plugins/shopify-product-photo-agent"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

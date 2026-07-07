@@ -1,0 +1,10 @@
+interface:
+  display_name: "Shopify Product Photo Agent"
+  short_description: "Generate Shopify product photos from real catalog images."
+  icon_small: "./assets/shopify-product-photo-agent.svg"
+  icon_large: "./assets/shopify-product-photo-agent.svg"
+  brand_color: "#B86B43"
+  default_prompt: "Generate Shopify product photo previews from my store."
+
+policy:
+  allow_implicit_invocation: true
