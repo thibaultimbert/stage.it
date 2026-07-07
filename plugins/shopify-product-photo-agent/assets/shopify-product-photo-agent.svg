@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Shopify Product Photo Agent</title>
+  <desc id="desc">Amber candle jar with a sparkle and camera frame.</desc>
+  <rect width="128" height="128" rx="28" fill="#fff7ed"/>
+  <path d="M31 34h66a8 8 0 0 1 8 8v45a8 8 0 0 1-8 8H31a8 8 0 0 1-8-8V42a8 8 0 0 1 8-8Z" fill="#f7d7bd" stroke="#3b2a21" stroke-width="5"/>
+  <path d="M45 42h38l4 12H41l4-12Z" fill="#d6a044" stroke="#3b2a21" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M43 53h42v35a9 9 0 0 1-9 9H52a9 9 0 0 1-9-9V53Z" fill="#9a4f22" stroke="#3b2a21" stroke-width="5"/>
+  <path d="M50 65h28a4 4 0 0 1 4 4v15a4 4 0 0 1-4 4H50a4 4 0 0 1-4-4V69a4 4 0 0 1 4-4Z" fill="#fffaf4"/>
+  <path d="M53 75h17M53 82h24" stroke="#3b2a21" stroke-width="4" stroke-linecap="round"/>
+  <path d="M95 23l4 10 10 4-10 4-4 10-4-10-10-4 10-4 4-10Z" fill="#f59e0b" stroke="#3b2a21" stroke-width="3" stroke-linejoin="round"/>
+</svg>

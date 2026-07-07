@@ -1,0 +1,44 @@
+{
+  "name": "shopify-product-photo-agent",
+  "version": "0.1.0",
+  "description": "Generate Shopify product photography from live catalog images, preview candidates, and upload approved media.",
+  "author": {
+    "name": "Thibault Imbert"
+  },
+  "homepage": "https://github.com/thibaultimbert/stage.it",
+  "repository": "https://github.com/thibaultimbert/stage.it",
+  "license": "MIT",
+  "keywords": [
+    "shopify",
+    "ecommerce",
+    "product photography",
+    "product images",
+    "catalog",
+    "ai images"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Shopify Product Photo Agent",
+    "shortDescription": "Create AI product photos from real Shopify catalog images.",
+    "longDescription": "Connect Codex to a Shopify store, pull product catalog media, generate product-photo previews from the real source images, and upload approved generated images back to Shopify as additional product media.",
+    "developerName": "Thibault Imbert",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/thibaultimbert/stage.it",
+    "defaultPrompt": [
+      "Generate Shopify product photo previews from my store.",
+      "Pull my Shopify catalog images and make a preview set.",
+      "Upload approved product photos back to Shopify."
+    ],
+    "brandColor": "#B86B43",
+    "composerIcon": "./assets/shopify-product-photo-agent.svg",
+    "logo": "./assets/logo.png",
+    "screenshots": [
+      "./assets/screenshot-after.png"
+    ]
+  }
+}
