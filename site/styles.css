@@ -85,6 +85,45 @@ img {
   font-size: 12.5px;
 }
 
+.logo-pair,
+.service-lockup,
+.platform-flow,
+.footer-lockup {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-pair {
+  gap: 9px;
+}
+
+.service-lockup {
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.logo-mark {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  background: currentColor;
+}
+
+.logo-codex {
+  -webkit-mask: url("./assets/logo-codex.svg") center / contain no-repeat;
+  mask: url("./assets/logo-codex.svg") center / contain no-repeat;
+}
+
+.logo-shopify {
+  -webkit-mask: url("./assets/logo-shopify.svg") center / contain no-repeat;
+  mask: url("./assets/logo-shopify.svg") center / contain no-repeat;
+}
+
+.brand-x {
+  color: var(--soft);
+}
+
 nav {
   display: flex;
   align-items: center;
@@ -153,6 +192,24 @@ h1 em,
   line-height: 1.65;
 }
 
+.platform-flow {
+  gap: 13px;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 26px;
+  padding: 10px 14px;
+  border: 1px solid rgba(26, 23, 18, 0.11);
+  border-radius: 999px;
+  color: #4a463c;
+  font-size: 13px;
+}
+
+.flow-line {
+  width: 42px;
+  height: 1px;
+  background: var(--line);
+}
+
 .hero-actions {
   display: flex;
   align-items: center;
@@ -164,6 +221,7 @@ h1 em,
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 9px;
   min-height: 54px;
   padding: 0 30px;
   border-radius: 999px;
@@ -488,6 +546,10 @@ code {
   font-size: 18px;
 }
 
+.footer-lockup {
+  gap: 10px;
+}
+
 @media (max-width: 980px) {
   .page-shell {
     width: 100%;
@@ -501,6 +563,11 @@ code {
   }
 
   .brand {
+    flex-wrap: wrap;
+  }
+
+  .brand-stack {
+    align-items: flex-start;
     flex-wrap: wrap;
   }
 
@@ -588,6 +655,15 @@ code {
     width: 100%;
     padding-left: 0;
     border-left: 0;
+  }
+
+  .platform-flow {
+    flex-wrap: wrap;
+    border-radius: 8px;
+  }
+
+  .flow-line {
+    width: 28px;
   }
 
   nav {
