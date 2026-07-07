@@ -255,6 +255,14 @@ h1 em,
   background: var(--paper-deep);
 }
 
+.proof-note {
+  max-width: 47ch;
+  margin: 16px 0 0;
+  color: var(--soft);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
 code {
   color: #342f27;
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
