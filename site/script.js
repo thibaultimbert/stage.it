@@ -1,12 +1,27 @@
-const layers = [...document.querySelectorAll(".photo-layer")];
-const label = document.querySelector(".stage-label");
-let activeIndex = 0;
+const comparisonFrame = document.querySelector(".comparison-frame");
+const comparisonRange = document.querySelector(".comparison-range");
 
-function showNextImage() {
-  layers[activeIndex].classList.remove("is-active");
-  activeIndex = (activeIndex + 1) % layers.length;
-  layers[activeIndex].classList.add("is-active");
-  label.textContent = layers[activeIndex].dataset.label;
+function setComparison(value) {
+  comparisonFrame.style.setProperty("--split", `${value}%`);
+  comparisonRange.value = value;
 }
 
-window.setInterval(showNextImage, 2400);
+if (comparisonFrame && comparisonRange) {
+  let autoDirection = 1;
+  let autoValue = Number(comparisonRange.value);
+  let userHasInteracted = false;
+
+  comparisonRange.addEventListener("input", (event) => {
+    userHasInteracted = true;
+    setComparison(event.target.value);
+  });
+
+  window.setInterval(() => {
+    if (userHasInteracted) return;
+    autoValue += autoDirection * 8;
+    if (autoValue >= 68 || autoValue <= 32) {
+      autoDirection *= -1;
+    }
+    setComparison(autoValue);
+  }, 1200);
+}

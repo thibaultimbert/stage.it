@@ -3,86 +3,183 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shopify Product Photo Agent for Codex</title>
+    <title>Stage.it — Shopify Product Photo Agent for Codex</title>
     <meta
       name="description"
-      content="Generate Shopify product photography from real catalog images with Codex."
+      content="Stage Shopify catalog images into editorial product photography with Codex."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
     />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="#">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Shopify Product Photo Agent</span>
-      </a>
-      <nav aria-label="Primary">
-        <a href="#install">Install</a>
-        <a href="#workflow">Workflow</a>
-      </nav>
-    </header>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#" aria-label="Stage.it home">
+          <span class="brand-name">stage<span>·</span>it</span>
+          <span class="brand-stack" aria-label="Codex and Shopify">Codex × Shopify</span>
+        </a>
+        <nav aria-label="Primary">
+          <a href="#workflow">Workflow</a>
+          <a href="#gallery">Gallery</a>
+          <a class="nav-install" href="#install">Install</a>
+        </nav>
+      </header>
 
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">Codex plugin for Shopify stores</p>
-          <h1 id="hero-title">Turn raw catalog shots into product photography.</h1>
-          <p class="lede">
-            Connect Codex to Shopify, pull real product images, generate staged
-            photo previews, and upload approved results back to the product listing.
-          </p>
-        </div>
-
-        <div class="showcase" aria-label="Before and after product photo comparison">
-          <div class="photo-frame">
-            <img
-              class="photo-layer is-active"
-              src="./assets/candle-before.webp"
-              alt="Original Shopify catalog candle photo"
-              data-label="Before"
-            />
-            <img
-              class="photo-layer"
-              src="./assets/candle-after.jpg"
-              alt="Generated staged product photo of the candle"
-              data-label="After"
-            />
-            <div class="stage-label" aria-live="polite">Before</div>
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">The product photo agent</p>
+            <h1 id="hero-title">
+              Raw catalog shots, restaged as <em>photography</em> worth selling.
+            </h1>
+            <p class="lede">
+              Stage.it connects Codex to your Shopify store, pulls your real
+              product images, and generates editorial 3:4 previews anchored to
+              the actual packaging, proportions, and labels.
+            </p>
+            <div class="hero-actions">
+              <a
+                class="primary-button"
+                href="codex://new?prompt=Install%20the%20Shopify%20Product%20Photo%20Agent%20plugin%20from%20the%20GitHub%20marketplace%20repo%20thibaultimbert%2Fstage.it%2C%20then%20open%20the%20plugin%20details."
+              >
+                Install in Codex
+              </a>
+              <a class="text-link" href="#workflow">See the workflow</a>
+            </div>
+            <div class="command-card" aria-label="Install command">
+              <span>Install</span>
+              <code>codex plugin marketplace add thibaultimbert/stage.it</code>
+            </div>
           </div>
-        </div>
 
-        <div id="install" class="install-panel">
+          <div class="comparison-card" aria-label="Before and after comparison">
+            <div class="comparison-frame" style="--split: 50%">
+              <img
+                class="after-image"
+                src="./assets/candle-after.jpg"
+                alt="Generated staged product photo of an Italian Garden candle"
+              />
+              <div class="before-layer">
+                <img
+                  src="./assets/candle-before.webp"
+                  alt="Original Shopify catalog candle photo"
+                />
+              </div>
+              <span class="image-pill before-pill">Before</span>
+              <span class="image-pill after-pill">After</span>
+              <div class="split-handle" aria-hidden="true"><span>⇄</span></div>
+              <input
+                class="comparison-range"
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+                aria-label="Compare before and after"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class="proof-strip" aria-label="Product fidelity guarantees">
+          <p>Anchored to real pixels</p>
+          <ul>
+            <li>Packaging preserved</li>
+            <li>Labels legible</li>
+            <li>Proportions true</li>
+            <li>3:4 storefront crop</li>
+            <li>Approve before upload</li>
+          </ul>
+        </section>
+
+        <section id="workflow" class="workflow">
+          <div class="section-heading">
+            <h2>Built for the real store workflow.</h2>
+            <span>Four steps</span>
+          </div>
+          <ol class="workflow-grid">
+            <li>
+              <span>01</span>
+              <h3>Authenticate</h3>
+              <p>
+                Connect through Shopify CLI. Credentials stay in your own
+                environment.
+              </p>
+            </li>
+            <li>
+              <span>02</span>
+              <h3>Pull catalog media</h3>
+              <p>
+                Read real product pixels and write manifests that track every
+                source image.
+              </p>
+            </li>
+            <li>
+              <span>03</span>
+              <h3>Generate previews</h3>
+              <p>
+                Create staged 3:4 photographs from the product image, not a
+                text-only prompt.
+              </p>
+            </li>
+            <li>
+              <span>04</span>
+              <h3>Approve and upload</h3>
+              <p>
+                Only approved frames are written back to the listing as
+                additional media.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <section id="gallery" class="gallery">
+          <div class="gallery-heading">
+            <h2>From the catalog.</h2>
+            <p>One source image becomes a storefront-ready product story.</p>
+          </div>
+          <div class="gallery-grid">
+            <article class="gallery-feature">
+              <img src="./assets/candle-after.jpg" alt="Staged candle in an olive-grove scene" />
+              <div>
+                <h3>Italian Garden Candle</h3>
+                <p>Generated 3:4 preview, ready for approval.</p>
+              </div>
+            </article>
+            <article class="placeholder-frame">
+              <span>Next product</span>
+              <p>Drop in another Shopify image and generate a new scene.</p>
+            </article>
+            <article class="placeholder-frame">
+              <span>Campaign set</span>
+              <p>Build seasonal previews while preserving product truth.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="install" class="final-cta">
+          <p>Install</p>
+          <h2>Give every listing a photograph, not a snapshot.</h2>
           <a
-            class="install-button"
+            class="primary-button"
             href="codex://new?prompt=Install%20the%20Shopify%20Product%20Photo%20Agent%20plugin%20from%20the%20GitHub%20marketplace%20repo%20thibaultimbert%2Fstage.it%2C%20then%20open%20the%20plugin%20details."
           >
             Install in Codex
           </a>
-          <p>
-            Public install command:
-            <code>codex plugin marketplace add thibaultimbert/stage.it</code>
-          </p>
-        </div>
-      </section>
+          <code>codex plugin marketplace add thibaultimbert/stage.it</code>
+        </section>
+      </main>
 
-      <section id="workflow" class="workflow" aria-label="Plugin workflow">
-        <div>
-          <h2>Built for the real store workflow</h2>
-          <p>
-            The plugin starts from Shopify product pixels, not a text-only product
-            description, so packaging, proportions, and labels stay anchored to
-            the source listing.
-          </p>
-        </div>
-        <ol>
-          <li>Authenticate with Shopify CLI.</li>
-          <li>Pull catalog media and write manifests.</li>
-          <li>Generate 3:4 previews from the product image.</li>
-          <li>Upload only after explicit approval.</li>
-        </ol>
-      </section>
-    </main>
+      <footer class="site-footer">
+        <span class="brand-name">stage<span>·</span>it</span>
+        <span>A Codex plugin for Shopify</span>
+      </footer>
+    </div>
 
     <script src="./script.js"></script>
   </body>
