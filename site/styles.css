@@ -667,7 +667,14 @@ code {
 
   .proof-strip {
     align-items: center;
+    gap: 24px;
     text-align: center;
+  }
+
+  .proof-strip ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
   }
 
   .workflow .section-heading {
