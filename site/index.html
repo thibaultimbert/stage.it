@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link rel="icon" href="./assets/favicon.svg?v=20260708-stunning-photos" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260708-palette-2b" />
+    <link rel="stylesheet" href="./styles.css?v=20260708-hero-carousel" />
   </head>
   <body>
     <div class="page-shell">
@@ -77,30 +77,84 @@
             </p>
           </div>
 
-          <div class="comparison-card" aria-label="Before and after comparison">
-            <div class="comparison-frame" style="--split: 50%">
-              <img
-                class="after-image"
-                src="./assets/candle-after.jpg"
-                alt="Generated staged product photo of an Italian Garden candle"
-              />
-              <div class="before-layer">
-                <img
-                  src="./assets/candle-before.webp"
-                  alt="Original Shopify catalog candle photo"
-                />
+          <div class="carousel-card" aria-label="Product photo carousel">
+            <div class="carousel-frame hero-carousel">
+              <div class="carousel-track">
+                <figure class="carousel-slide" data-label="Raw catalog photo">
+                  <img
+                    src="./assets/candle-before.webp"
+                    alt="Original Shopify catalog candle photo"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Mediterranean bathroom ritual">
+                  <img
+                    src="./assets/carousel-01-bathroom-lit.webp"
+                    alt="Lit Italian Garden candle staged in a Mediterranean bathroom ritual"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Italian harvest table">
+                  <img
+                    src="./assets/carousel-02-harvest-lit.webp"
+                    alt="Lit Italian Garden candle staged with figs, olives, and autumn harvest elements"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Garden terrace">
+                  <img
+                    src="./assets/carousel-03-terrace-lit.webp"
+                    alt="Lit Italian Garden candle staged on a Mediterranean garden terrace"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Sunlit bathroom">
+                  <img
+                    src="./assets/carousel-04-bathroom.webp"
+                    alt="Italian Garden candle staged on a sunlit stone bathroom counter"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Evening reading nook">
+                  <img
+                    src="./assets/carousel-05-reading-nook.webp"
+                    alt="Italian Garden candle staged in a warm evening reading nook"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Olive grove breakfast">
+                  <img
+                    src="./assets/carousel-06-breakfast-table.webp"
+                    alt="Italian Garden candle staged on an olive grove breakfast table"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Thanksgiving table">
+                  <img
+                    src="./assets/carousel-07-thanksgiving-table.webp"
+                    alt="Italian Garden candle staged on a Thanksgiving harvest table"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Thanksgiving kitchen">
+                  <img
+                    src="./assets/carousel-08-thanksgiving-kitchen.webp"
+                    alt="Italian Garden candle staged in a bright Thanksgiving morning kitchen"
+                  />
+                </figure>
+                <figure class="carousel-slide" data-label="Candlelit sideboard">
+                  <img
+                    src="./assets/carousel-09-thanksgiving-sideboard.webp"
+                    alt="Lit Italian Garden candle staged on a candlelit Thanksgiving sideboard"
+                  />
+                </figure>
               </div>
-              <span class="image-pill before-pill">Before</span>
-              <span class="image-pill after-pill">After</span>
-              <div class="split-handle" aria-hidden="true"><span>⇄</span></div>
-              <input
-                class="comparison-range"
-                type="range"
-                min="0"
-                max="100"
-                value="50"
-                aria-label="Compare before and after"
-              />
+              <span class="carousel-pill">Raw catalog photo</span>
+              <span class="carousel-counter">01 / 10</span>
+              <div class="carousel-dots" aria-label="Carousel progress">
+                <button type="button" aria-label="Show slide 1"></button>
+                <button type="button" aria-label="Show slide 2"></button>
+                <button type="button" aria-label="Show slide 3"></button>
+                <button type="button" aria-label="Show slide 4"></button>
+                <button type="button" aria-label="Show slide 5"></button>
+                <button type="button" aria-label="Show slide 6"></button>
+                <button type="button" aria-label="Show slide 7"></button>
+                <button type="button" aria-label="Show slide 8"></button>
+                <button type="button" aria-label="Show slide 9"></button>
+                <button type="button" aria-label="Show slide 10"></button>
+              </div>
             </div>
           </div>
         </section>
@@ -189,6 +243,6 @@
       </footer>
     </div>
 
-    <script src="./script.js?v=20260708-stunning-photos"></script>
+    <script src="./script.js?v=20260708-hero-carousel"></script>
   </body>
 </html>

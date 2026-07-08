@@ -1,27 +1,53 @@
-const comparisonFrame = document.querySelector(".comparison-frame");
-const comparisonRange = document.querySelector(".comparison-range");
+const carousel = document.querySelector(".hero-carousel");
 
-function setComparison(value) {
-  comparisonFrame.style.setProperty("--split", `${value}%`);
-  comparisonRange.value = value;
-}
+if (carousel) {
+  const track = carousel.querySelector(".carousel-track");
+  const slides = Array.from(carousel.querySelectorAll(".carousel-slide"));
+  const dots = Array.from(carousel.querySelectorAll(".carousel-dots button"));
+  const label = carousel.querySelector(".carousel-pill");
+  const counter = carousel.querySelector(".carousel-counter");
+  const intervalMs = 2000;
+  let currentIndex = 0;
+  let timerId;
 
-if (comparisonFrame && comparisonRange) {
-  let autoDirection = 1;
-  let autoValue = Number(comparisonRange.value);
-  let userHasInteracted = false;
+  function showSlide(nextIndex) {
+    currentIndex = (nextIndex + slides.length) % slides.length;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-  comparisonRange.addEventListener("input", (event) => {
-    userHasInteracted = true;
-    setComparison(event.target.value);
+    slides.forEach((slide, index) => {
+      slide.setAttribute("aria-hidden", index === currentIndex ? "false" : "true");
+    });
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("is-active", index === currentIndex);
+      dot.setAttribute("aria-current", index === currentIndex ? "true" : "false");
+    });
+
+    label.textContent = slides[currentIndex].dataset.label || "Product photo";
+    counter.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+  }
+
+  function startCarousel() {
+    window.clearInterval(timerId);
+    timerId = window.setInterval(() => showSlide(currentIndex + 1), intervalMs);
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showSlide(index);
+      startCarousel();
+    });
   });
 
-  window.setInterval(() => {
-    if (userHasInteracted) return;
-    autoValue += autoDirection * 8;
-    if (autoValue >= 68 || autoValue <= 32) {
-      autoDirection *= -1;
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      window.clearInterval(timerId);
+      return;
     }
-    setComparison(autoValue);
-  }, 1200);
+
+    startCarousel();
+  });
+
+  showSlide(0);
+  startCarousel();
 }
