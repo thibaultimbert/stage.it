@@ -514,11 +514,11 @@ code {
 }
 
 .listing-prompt h2 {
-  max-width: 15ch;
+  max-width: 24ch;
   margin: 0 auto;
   color: var(--ink);
-  font-size: clamp(44px, 5vw, 72px);
-  line-height: 0.98;
+  font-size: clamp(32px, 3.2vw, 48px);
+  line-height: 1.08;
 }
 
 .listing-results {
@@ -874,7 +874,7 @@ code {
   }
 
   .listing-prompt h2 {
-    font-size: 42px;
+    font-size: 34px;
   }
 
   .workflow,
