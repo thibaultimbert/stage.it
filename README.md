@@ -44,3 +44,7 @@ Then open Codex Plugins, switch to the **Stage.it** marketplace, and install the
 The static landing page lives in `site/`. This repo includes a GitHub Pages workflow that uploads that folder as the site artifact.
 
 The landing page's **Install in Codex** button opens a new Codex thread with a prefilled install request. The CLI command above remains the most reliable install path for first-time users because Codex needs to know this marketplace before it can show the plugin in the plugin directory.
+
+## Contacts
+
+https://x.com/thibault_imbert
