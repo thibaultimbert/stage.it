@@ -383,6 +383,7 @@ code {
 .proof-strip {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 38px;
   padding: 26px 64px;
   border-top: 1px solid var(--line);
@@ -406,6 +407,7 @@ code {
 .proof-strip ul {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 16px 30px;
   margin: 0;
   padding: 0;
@@ -656,6 +658,11 @@ code {
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .proof-strip {
+    align-items: center;
+    text-align: center;
   }
 
   .workflow .section-heading {
