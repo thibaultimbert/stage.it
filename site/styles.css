@@ -485,24 +485,24 @@ code {
 }
 
 .listing-proof {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
-  gap: 48px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 56px;
   padding: 80px 64px;
   border-top: 1px solid var(--line);
   background:
-    radial-gradient(80% 90% at 18% 0%, rgba(198, 242, 78, 0.1), transparent 54%),
+    radial-gradient(80% 90% at 50% 0%, rgba(198, 242, 78, 0.1), transparent 54%),
     var(--paper);
 }
 
 .listing-prompt {
-  position: sticky;
-  top: 32px;
-  align-self: start;
-  padding: 34px;
+  width: min(100%, 920px);
+  padding: 38px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--paper-deep);
+  text-align: center;
 }
 
 .listing-prompt p {
@@ -514,7 +514,8 @@ code {
 }
 
 .listing-prompt h2 {
-  max-width: 10ch;
+  max-width: 15ch;
+  margin: 0 auto;
   color: var(--ink);
   font-size: clamp(44px, 5vw, 72px);
   line-height: 0.98;
@@ -523,6 +524,7 @@ code {
 .listing-results {
   display: grid;
   gap: 34px;
+  width: min(100%, 1120px);
 }
 
 .listing-results figure {
@@ -753,15 +755,6 @@ code {
   .workflow-grid,
   .gallery-grid {
     grid-template-columns: 1fr;
-  }
-
-  .listing-proof {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
-  .listing-prompt {
-    position: static;
   }
 
   .listing-prompt h2 {
