@@ -1,14 +1,14 @@
 {
-  "name": "shopify-product-photo-agent",
+  "name": "stage-it",
   "interface": {
-    "displayName": "Shopify Product Photo Agent"
+    "displayName": "Stage.it"
   },
   "plugins": [
     {
-      "name": "shopify-product-photo-agent",
+      "name": "stage-it",
       "source": {
         "source": "local",
-        "path": "./plugins/shopify-product-photo-agent"
+        "path": "./plugins/stage-it"
       },
       "policy": {
         "installation": "AVAILABLE",

@@ -1,9 +1,9 @@
 ---
-name: shopify-product-photo-agent
+name: stage-it
 description: Use when a user wants Codex to connect to any Shopify store, extract product catalog images, generate new AI product photography from the actual product images, preview the results, and upload approved or explicitly requested images back to Shopify product listings.
 ---
 
-# Shopify Product Photo Agent
+# Stage.it
 
 This skill lets Codex act as a product-photo assistant for any Shopify store. In a fresh chat, ask only one required setup question if the user has not already provided it:
 

@@ -1,6 +1,6 @@
 # Stage.it
 
-Stage.it packages the **Shopify Product Photo Agent** for Codex. It helps turn live Shopify catalog media into staged product photography: pull product images from a Shopify store, generate preview candidates from the actual source pixels, and upload approved images back to Shopify as additional product media.
+Stage.it packages the **Stage.it** Codex plugin. It helps turn live Shopify catalog media into staged product photography: pull product images from a Shopify store, generate preview candidates from the actual source pixels, and upload approved images back to Shopify as additional product media.
 
 ## Install From This Repo
 
@@ -10,7 +10,7 @@ This repository includes a repo-scoped Codex plugin marketplace:
 codex plugin marketplace add thibaultimbert/stage.it
 ```
 
-After adding the marketplace, open Codex Plugins and install **Shopify Product Photo Agent**.
+After adding the marketplace, open Codex Plugins and install **Stage.it**.
 
 For local development from this checkout:
 
@@ -18,7 +18,7 @@ For local development from this checkout:
 codex plugin marketplace add .
 ```
 
-Then open Codex Plugins, switch to the **Shopify Product Photo Agent** marketplace, and install the plugin.
+Then open Codex Plugins, switch to the **Stage.it** marketplace, and install the plugin.
 
 ## What It Does
 
