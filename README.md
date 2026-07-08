@@ -2,6 +2,17 @@
 
 [**Stage.it**](https://thibaultimbert.github.io/stage.it) is a Codex plugin that creates stunning product photos from your Shopify product catalog: it pulls product images from any Shopify store, generate preview candidates for you to review based on your asks, upload approved images back to Shopify directly in the product listings.
 
+Example: Stage.it, update my catalog for the upcoming Thanksgiving season:
+
+Before:
+
+<img width="543" height="679" alt="001-italian-garden-candle-73622045491545" src="https://github.com/user-attachments/assets/4893c623-959b-422f-adfb-e929aa8e7bb5" />
+
+After:
+
+<img width="543" height="724" alt="03-italian-harvest-thanksgiving-lit-lid-off" src="https://github.com/user-attachments/assets/9f12f3ce-9840-4a62-bdf7-c85a7f52eedf" />
+
+
 ## Install From This Repo
 
 This repository includes a repo-scoped Codex plugin marketplace:
