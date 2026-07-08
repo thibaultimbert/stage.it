@@ -706,7 +706,7 @@ code {
   }
 
   nav {
-    display: none;
+    display: flex;
   }
 
   .hero-copy {
