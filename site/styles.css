@@ -674,6 +674,11 @@ code {
   text-transform: none;
 }
 
+.final-cta .mobile-codex-note {
+  width: min(100%, 42ch);
+  margin: 30px auto 0;
+}
+
 .final-cta code {
   display: block;
   margin-top: 24px;
@@ -915,5 +920,9 @@ code {
 
   .final-cta {
     margin: 38px 0 0;
+  }
+
+  .final-cta .mobile-codex-note {
+    margin-top: 34px;
   }
 }
