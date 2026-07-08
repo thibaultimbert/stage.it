@@ -191,6 +191,19 @@ h1 em,
   line-height: 1.65;
 }
 
+.inline-logo-word {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.inline-logo-word .logo-mark {
+  width: 15px;
+  height: 15px;
+  transform: translateY(2px);
+}
+
 .hero-actions {
   display: flex;
   align-items: center;
