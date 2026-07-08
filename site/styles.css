@@ -390,12 +390,16 @@ code {
   background: #f1ead9;
 }
 
-.proof-strip p {
+.proof-strip p,
+.proof-strip li {
   margin: 0;
   color: var(--accent);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 21px;
   font-style: italic;
+}
+
+.proof-strip p {
   white-space: nowrap;
 }
 
@@ -405,8 +409,6 @@ code {
   gap: 16px 30px;
   margin: 0;
   padding: 0;
-  color: #6a6455;
-  font-size: 13px;
   list-style: none;
 }
 
