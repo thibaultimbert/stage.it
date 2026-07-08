@@ -1,6 +1,6 @@
 {
   "name": "stage-it",
-  "version": "0.1.0",
+  "version": "0.1.0+codex.20260708080845",
   "description": "Stage.it generates Shopify product photography from live catalog images, preview candidates, and upload approved media.",
   "author": {
     "name": "Thibault Imbert"
