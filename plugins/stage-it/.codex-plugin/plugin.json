@@ -1,6 +1,6 @@
 {
   "name": "stage-it",
-  "version": "0.1.0+codex.20260708080845",
+  "version": "0.1.0+codex.20260708081110",
   "description": "Stage.it generates Shopify product photography from live catalog images, preview candidates, and upload approved media.",
   "author": {
     "name": "Thibault Imbert"
@@ -28,7 +28,7 @@
       "Read",
       "Write"
     ],
-    "websiteURL": "https://github.com/thibaultimbert/stage.it",
+    "websiteURL": "https://thibaultimbert.github.io/stage.it",
     "defaultPrompt": [
       "Generate Shopify product photo previews from my store.",
       "Pull my Shopify catalog images and make a preview set.",
