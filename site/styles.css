@@ -521,6 +521,10 @@ code {
   line-height: 1.08;
 }
 
+.listing-prompt h2 .prompt-mention {
+  color: var(--accent);
+}
+
 .listing-results {
   display: grid;
   gap: 34px;
