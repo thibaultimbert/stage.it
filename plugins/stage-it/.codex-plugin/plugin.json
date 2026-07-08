@@ -1,6 +1,6 @@
 {
   "name": "stage-it",
-  "version": "0.1.0+codex.20260708081705",
+  "version": "0.1.0+codex.20260708082118",
   "description": "Stage.it connects Codex to your Shopify store and turns your whole catalog into stunning editorial photos in seconds.",
   "author": {
     "name": "Thibault Imbert"
@@ -33,7 +33,7 @@
       "Create 3 new photos of each product for the upcoming Thanksgiving season."
     ],
     "brandColor": "#B86B43",
-    "composerIcon": "./assets/stage-it.svg",
+    "composerIcon": "./assets/stage-it-mark.svg",
     "logo": "./assets/logo.png",
     "screenshots": [
       "./assets/screenshot-after.png"

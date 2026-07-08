@@ -1,8 +1,8 @@
 interface:
   display_name: "Stage.it"
   short_description: "Generate Shopify product photos from real catalog images."
-  icon_small: "./assets/stage-it.svg"
-  icon_large: "./assets/stage-it.svg"
+  icon_small: "./assets/stage-it-mark.svg"
+  icon_large: "./assets/stage-it-mark.svg"
   brand_color: "#B86B43"
   default_prompt: "Generate Shopify product photo previews from my store."
 
