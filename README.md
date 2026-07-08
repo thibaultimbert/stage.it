@@ -1,6 +1,6 @@
 # Stage.it
 
-Stage.it packages the **Stage.it** Codex plugin. It helps turn live Shopify catalog media into staged product photography: pull product images from a Shopify store, generate preview candidates from the actual source pixels, and upload approved images back to Shopify as additional product media.
+**Stage.it** is a Codex plugin that creates stunning product photos from your Shopify product catalog: it pulls product images from any Shopify store, generate preview candidates for you to review based on your asks, upload approved images back to Shopify directly in the product listings.
 
 ## Install From This Repo
 
