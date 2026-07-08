@@ -674,9 +674,9 @@ code {
   text-transform: none;
 }
 
-.final-cta .mobile-codex-note {
+.final-cta > p.mobile-codex-note {
   width: min(100%, 42ch);
-  margin: 30px auto 0;
+  margin: 48px auto 0;
 }
 
 .final-cta code {
@@ -922,7 +922,7 @@ code {
     margin: 38px 0 0;
   }
 
-  .final-cta .mobile-codex-note {
-    margin-top: 34px;
+  .final-cta > p.mobile-codex-note {
+    margin-top: 52px;
   }
 }
