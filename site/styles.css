@@ -87,7 +87,6 @@ img {
 
 .logo-pair,
 .service-lockup,
-.platform-flow,
 .footer-lockup {
   display: inline-flex;
   align-items: center;
@@ -190,24 +189,6 @@ h1 em,
   color: var(--muted);
   font-size: 17px;
   line-height: 1.65;
-}
-
-.platform-flow {
-  gap: 13px;
-  width: max-content;
-  max-width: 100%;
-  margin-top: 26px;
-  padding: 10px 14px;
-  border: 1px solid rgba(26, 23, 18, 0.11);
-  border-radius: 999px;
-  color: #4a463c;
-  font-size: 13px;
-}
-
-.flow-line {
-  width: 42px;
-  height: 1px;
-  background: var(--line);
 }
 
 .hero-actions {
@@ -674,15 +655,6 @@ code {
     width: 100%;
     padding-left: 0;
     border-left: 0;
-  }
-
-  .platform-flow {
-    flex-wrap: wrap;
-    border-radius: 8px;
-  }
-
-  .flow-line {
-    width: 28px;
   }
 
   nav {
