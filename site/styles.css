@@ -115,6 +115,7 @@ img {
 }
 
 .logo-shopify {
+  background: #95bf47;
   -webkit-mask: url("./assets/logo-shopify.svg") center / contain no-repeat;
   mask: url("./assets/logo-shopify.svg") center / contain no-repeat;
 }
