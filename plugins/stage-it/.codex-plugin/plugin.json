@@ -1,6 +1,6 @@
 {
   "name": "stage-it",
-  "version": "0.1.0+codex.20260708082118",
+  "version": "0.1.0+codex.20260708082349",
   "description": "Stage.it connects Codex to your Shopify store and turns your whole catalog into stunning editorial photos in seconds.",
   "author": {
     "name": "Thibault Imbert"
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Stage.it",
     "shortDescription": "Turn your whole Shopify catalog into stunning editorial photos in seconds.",
-    "longDescription": "Stage.it connects Codex to your Shopify store and turns your whole catalog into stunning editorial photos in seconds.\n\nExamples:\nCreate 3 new photos of each product for the upcoming Thanksgiving season.\n\nAnd voil\u00e0.",
+    "longDescription": "Stage.it connects Codex to your Shopify store and turns your whole catalog into stunning editorial photos in seconds.\n\nExample:\nCreate 3 new photos of each product for the upcoming Thanksgiving season.\n\nAnd voil\u00e0.",
     "developerName": "Thibault Imbert",
     "category": "Productivity",
     "capabilities": [
