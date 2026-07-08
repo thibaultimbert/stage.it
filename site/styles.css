@@ -379,15 +379,19 @@ code {
 .section-heading,
 .gallery-heading {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   gap: 32px;
   margin-bottom: 48px;
+  text-align: center;
 }
 
 .section-heading h2,
 .gallery-heading h2 {
   max-width: 16ch;
+  margin-right: auto;
+  margin-left: auto;
   font-size: clamp(38px, 4vw, 48px);
 }
 
@@ -608,6 +612,10 @@ code {
   .site-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .workflow .section-heading {
+    align-items: center;
   }
 
   .proof-strip,
