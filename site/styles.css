@@ -256,6 +256,33 @@ h1 em,
   background: var(--accent-dark);
 }
 
+.install-mobile,
+.mobile-codex-note {
+  display: none;
+}
+
+.is-mobile-codex-target .install-desktop,
+.is-mobile-codex-target .command-card,
+.is-mobile-codex-target .final-cta code {
+  display: none;
+}
+
+.is-mobile-codex-target .install-mobile {
+  display: inline-flex;
+}
+
+.is-mobile-codex-target .mobile-codex-note {
+  display: block;
+}
+
+.mobile-codex-note {
+  max-width: 42ch;
+  margin: 14px 0 0;
+  color: var(--soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .text-link {
   padding-bottom: 3px;
   border-bottom: 1px solid rgba(237, 238, 233, 0.34);

@@ -8,6 +8,14 @@
       name="description"
       content="Stage Shopify catalog images into editorial product photography with Codex."
     />
+    <script>
+      (() => {
+        const ua = navigator.userAgent || "";
+        const isTouchMac = /Macintosh/.test(ua) && navigator.maxTouchPoints > 1;
+        const isMobile = /Android|iPhone|iPad|iPod|IEMobile|Mobile/i.test(ua) || isTouchMac;
+        document.documentElement.classList.toggle("is-mobile-codex-target", isMobile);
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="icon" href="./assets/favicon.svg?v=20260708-stunning-photos" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260708-all-prompt-mentions" />
+    <link rel="stylesheet" href="./styles.css?v=20260708-mobile-chatgpt-cta" />
   </head>
   <body>
     <div class="page-shell">
@@ -59,13 +67,24 @@
             </p>
             <div class="hero-actions">
               <a
-                class="primary-button"
+                class="primary-button install-desktop"
                 href="codex://new?prompt=Install%20the%20Stage.it%20plugin%20from%20the%20GitHub%20marketplace%20repo%20thibaultimbert%2Fstage.it%2C%20then%20open%20the%20plugin%20details."
               >
                 <span class="logo-mark logo-codex" aria-hidden="true"></span>
                 Install in Codex
               </a>
+              <a
+                class="primary-button install-mobile"
+                href="https://chatgpt.com/codex"
+              >
+                <span class="logo-mark logo-codex" aria-hidden="true"></span>
+                Open in ChatGPT
+              </a>
             </div>
+            <p class="mobile-codex-note">
+              On mobile, Codex runs through ChatGPT and uses your paired
+              desktop Codex host.
+            </p>
             <div class="command-card" aria-label="Install command">
               <span>Install</span>
               <code>codex plugin marketplace add thibaultimbert/stage.it</code>
@@ -258,12 +277,23 @@
             else.
           </p>
           <a
-            class="primary-button"
+            class="primary-button install-desktop"
             href="codex://new?prompt=Install%20the%20Stage.it%20plugin%20from%20the%20GitHub%20marketplace%20repo%20thibaultimbert%2Fstage.it%2C%20then%20open%20the%20plugin%20details."
           >
             <span class="logo-mark logo-codex" aria-hidden="true"></span>
             Install in Codex
           </a>
+          <a
+            class="primary-button install-mobile"
+            href="https://chatgpt.com/codex"
+          >
+            <span class="logo-mark logo-codex" aria-hidden="true"></span>
+            Open in ChatGPT
+          </a>
+          <p class="mobile-codex-note">
+            Pair ChatGPT mobile with a Mac or Windows Codex host first, then
+            install Stage.it from that host.
+          </p>
           <code>codex plugin marketplace add thibaultimbert/stage.it</code>
         </section>
       </main>
