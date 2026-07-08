@@ -2,16 +2,15 @@
 
 [**Stage.it**](https://thibaultimbert.github.io/stage.it) is a [Codex](https://https://openai.com/codex/) plugin that creates stunning product photos from your Shopify product catalog: it pulls product images from any Shopify store, generate preview candidates for you to review based on your asks, upload approved images back to Shopify directly in the product listings. All autonomously for you.
 
-Codex prompt: _Stage.it, update my catalog for the upcoming Thanksgiving season:_
+Codex prompt: _Stage.it, update my catalog with new photos:_
 
 Before:
 
-<img width="543" height="679" alt="001-italian-garden-candle-73622045491545" src="https://github.com/user-attachments/assets/4893c623-959b-422f-adfb-e929aa8e7bb5" />
+<img width="690" height="690" alt="listing-before" src="https://github.com/user-attachments/assets/aeb50d10-1d6c-420b-8b8d-b5d08b3bce5c" />
 
 After:
 
-<img width="543" height="724" alt="03-italian-harvest-thanksgiving-lit-lid-off" src="https://github.com/user-attachments/assets/9f12f3ce-9840-4a62-bdf7-c85a7f52eedf" />
-
+<img width="690" height="686" alt="listing-after" src="https://github.com/user-attachments/assets/8d80d245-eef2-4cb9-81d8-77c5d0d46cf5" />
 
 ## Install From This Repo
 
