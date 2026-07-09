@@ -1,6 +1,6 @@
 ---
 name: stage-it
-description: Use when a user wants Codex to connect to any Shopify store, extract product catalog images, generate new AI product photography from the actual product images, preview the results, and upload approved or explicitly requested images back to Shopify product listings.
+description: Use when a user wants Codex to connect to any Shopify store, extract product catalog images, generate new AI product photography with gpt-image-2 from the actual product images, preview the results, and upload approved or explicitly requested images back to Shopify product listings.
 ---
 
 # Stage.it
@@ -21,7 +21,7 @@ Default behavior:
 2. Authenticate to the store with the required Admin API scopes.
 3. Resolve the permanent `.myshopify.com` domain if the provided store URL redirects.
 4. Pull product media and create a local catalog manifest.
-5. Generate new product photography using each product's real image as the image reference/edit target.
+5. Generate new product photography with `gpt-image-2` image-to-image by passing each product's real image as the reference/edit target alongside the scene prompt.
 6. Always show generated previews and wait for approval before uploading.
 7. After approval, upload acceptable generated images as additional Shopify product media.
 8. Verify uploaded media is `READY` and save an upload manifest.
@@ -31,7 +31,8 @@ Safety defaults:
 - Never delete or replace existing product media unless explicitly requested.
 - Add generated images as additional media by default.
 - Never upload generated images without first presenting previews for user approval.
-- Always use GPT image-to-image for product-photo generation: provide the original Shopify product image as the input image/reference/edit target and put the scene request in the prompt.
+- Always use `gpt-image-2` image-to-image for product-photo generation: provide the original Shopify product image as the input image/reference/edit target and put the scene request in the prompt.
+- Do not use another image model unless the user explicitly approves a fallback. If `gpt-image-2` cannot be selected or is unavailable, stop and explain the blocker.
 - Do not crop, cut out, mask, paste, manually composite, or build the final product photo by placing product pixels into a generated background unless the user explicitly asks for that non-default workflow.
 - Never present an image with a changed label, logo, invented readable text, altered package shape, or altered product proportions as an upload candidate. Mark it failed and rerun GPT image-to-image with stricter preservation instructions.
 - If repeated GPT image-to-image attempts cannot preserve the product identity well enough, stop and explain the limitation instead of switching to manual compositing.
@@ -225,13 +226,13 @@ For each product:
 1. Prefer the first product media image with `mediaContentType == IMAGE`.
 2. If there are multiple meaningful angles, pick the best hero image unless the user asked to process every image.
 3. Do not generate from duplicate-looking media records unless the user requested per-media processing.
-4. Keep a generation manifest mapping product ID, handle, source media ID, source image path, prompt, generated paths, and eventual Shopify media IDs.
+4. Keep a generation manifest mapping product ID, handle, source media ID, source image path, image model (`gpt-image-2`), prompt, generated paths, and eventual Shopify media IDs.
 
 ## Product Photography Generation
 
 Core rule: start from pixels, not prose.
 
-Use the original Shopify product image as the image reference/edit target. The prompt should describe the new environment and product state, not recreate the product design from text.
+Default rule: use `gpt-image-2` image-to-image with the original Shopify product image supplied as the input image/reference/edit target. The prompt should describe the new environment and product state, not recreate the product design from text.
 
 Do not use manual image construction as a workaround. In the default Stage.it workflow, do not crop, cut out, mask, paste, manually composite, or post-process the original product into a generated background. If an image-to-image result drifts, reject it and rerun GPT image-to-image with stricter preservation constraints. If repeated attempts fail, report that the model could not preserve the product identity closely enough.
 
@@ -327,7 +328,8 @@ Italian harvest Thanksgiving, late-autumn garden, olive branches, figs, pears, r
 
 Tool guidance:
 
-- Use Codex's native GPT image capability for generation and editing.
+- Use Codex's native GPT image capability for generation and editing, and select model `gpt-image-2` explicitly wherever model selection is available.
+- If `gpt-image-2` is unavailable, stop and ask the user before using any other image model.
 - Treat the Shopify product image as the input image reference/edit target.
 - Use `Input image role: source product image / edit target` verbatim in prompts.
 - Preserve the logo by reference, not by transcription: do not write visible logo text, brand text, or product label text into the prompt as text to render unless the user specifically asks for text repair.
@@ -360,6 +362,7 @@ Hard reject:
 
 Preview manifests must include:
 
+- `imageModel`: `gpt-image-2`
 - `productPreservationWorkflow`: `gpt-image-to-image`
 - `sourceImageUsedAsReference`: true/false
 - `rejectedAttempts`: count and reason summary
