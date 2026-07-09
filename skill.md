@@ -21,7 +21,7 @@ Default behavior:
 2. Authenticate to the store with the required Admin API scopes.
 3. Resolve the permanent `.myshopify.com` domain if the provided store URL redirects.
 4. Pull product media and create a local catalog manifest.
-5. Generate new product photography with a pixel-preserving workflow by default: create or edit the scene, then composite the original product pixels into it. Do not re-render the product unless the user explicitly approves product re-rendering.
+5. Generate new product photography with GPT image-to-image by passing each product's real image as the reference/edit target alongside the scene prompt.
 6. Always show generated previews and wait for approval before uploading.
 7. After approval, upload acceptable generated images as additional Shopify product media.
 8. Verify uploaded media is `READY` and save an upload manifest.
@@ -31,9 +31,10 @@ Safety defaults:
 - Never delete or replace existing product media unless explicitly requested.
 - Add generated images as additional media by default.
 - Never upload generated images without first presenting previews for user approval.
-- Product pixels are sacred by default: preserve the original product, label, logo, package text, geometry, proportions, material, and color. Prompting alone is not enough protection.
-- Never present an image with a changed label, logo, invented readable text, altered package shape, or altered product proportions as an upload candidate. Mark it failed and regenerate with a safer workflow.
-- Ask before any workflow that will re-render the product itself. Explain that re-rendering can change labels, logos, package text, and geometry.
+- Always use GPT image-to-image for product-photo generation: provide the original Shopify product image as the input image/reference/edit target and put the scene request in the prompt.
+- Do not crop, cut out, mask, paste, manually composite, or build the final product photo by placing product pixels into a generated background unless the user explicitly asks for that non-default workflow.
+- Never present an image with a changed label, logo, invented readable text, altered package shape, or altered product proportions as an upload candidate. Mark it failed and rerun GPT image-to-image with stricter preservation instructions.
+- If repeated GPT image-to-image attempts cannot preserve the product identity well enough, stop and explain the limitation instead of switching to manual compositing.
 - Warn before upload if label/logo/text drift could misrepresent the product.
 - Keep local manifests for every pull, generation run, and upload.
 - Use portrait `3:4` product-gallery images unless the user requests another format.
@@ -230,24 +231,11 @@ For each product:
 
 Core rule: start from pixels, not prose.
 
-Default rule: preserve the original product pixels. The safest production workflow is not "ask the image model to preserve the product"; it is "do not give the image model permission to redraw the product."
+Default rule: use GPT image-to-image with the original Shopify product image supplied as the input image/reference/edit target. The prompt should describe the new environment and product state, not recreate the product design from text.
 
-Use this pixel-preserving workflow by default:
+Do not use manual image construction as a workaround. In the default Stage.it workflow, do not crop, cut out, mask, paste, manually composite, or post-process the original product into a generated background. If an image-to-image result drifts, reject it and rerun GPT image-to-image with stricter preservation constraints. If repeated attempts fail, report that the model could not preserve the product identity closely enough.
 
-1. Extract the product from the source image or create a product mask.
-2. Generate or edit only the scene/background at the target aspect ratio.
-3. Composite the original product pixels into the generated scene.
-4. Add scene-matched shadow, contact shadow, reflection, color balance, and edge blending around the product without changing the product itself.
-5. If small retouching is needed, mask-protect the label, logo, package text, product silhouette, and core product surfaces.
-6. Verify against the source image before presenting previews.
-
-Only use whole-image product re-rendering after explicit user approval. If approved, the prompt should describe the new environment and product state, not recreate the product design from text.
-
-Product-state changes are not free. Opening a package, removing a lid, lighting a candle, showing wax, changing fill level, wearing apparel, or showing usage may require re-rendering part of the product. Before doing this, choose the least risky route:
-
-- Prefer a real Shopify source image that already shows the desired product state.
-- Otherwise preserve the visible label/logo/package pixels and modify only the state-specific area with a tight mask.
-- If a whole-product re-render is unavoidable, ask the user first and mark the run as `product-rerender-approved` in the manifest.
+Product-state changes are handled by the image-to-image prompt. Opening a package, removing a lid, lighting a candle, showing wax, changing fill level, wearing apparel, or showing usage must still preserve the source product's label, logo, package text, shape, material, and proportions. If the desired state cannot be generated without changing product identity, stop and ask for a better source image or user direction.
 
 Good:
 
@@ -262,12 +250,6 @@ Create an amber candle jar with a white label reading ITALIAN GARDEN...
 ```
 
 The bad pattern often causes invented labels, altered logos, changed package text, and wrong proportions.
-
-Better default:
-
-```text
-Generate a Tuscan Thanksgiving table scene with an empty product placement area, realistic light, and a matching contact surface. The original product will be composited later and must not be re-rendered.
-```
 
 ### Contextual Scene Selection
 
@@ -339,9 +321,9 @@ Italian harvest Thanksgiving, late-autumn garden, olive branches, figs, pears, r
 Tool guidance:
 
 - Use Codex's native GPT image capability for generation and editing.
-- Treat the Shopify product image as a protected source asset, not as permission to redraw the product.
-- Do not use built-in whole-image edits for catalog-safe products with labels/logos unless the user explicitly approved product re-rendering.
-- Prefer deterministic local compositing when label, logo, package text, or exact product geometry matters.
+- Treat the Shopify product image as the input image reference/edit target for GPT image-to-image.
+- Do not crop, cut out, mask, paste, manually composite, or use local image processing to assemble the product photo unless the user explicitly requests that separate workflow.
+- Do not fall back to manual compositing when the image model drifts. Rerun GPT image-to-image with stricter preservation constraints or mark the attempt failed.
 - Generate separate images for distinct concepts rather than asking for many unrelated scenes in one prompt.
 - Save final generated images into the workspace. Do not leave project-bound assets only in Codex's default generated-image directory.
 - Preserve originals and save generated variants under a campaign-specific folder, such as `exports/generated-product-photos/<campaign>/<product-handle>/`.
@@ -353,7 +335,7 @@ Preview is mandatory. Always present generated product-photo previews to the use
 Before presenting previews, inspect generated images for:
 
 - one product only
-- exact product preservation if using the default workflow
+- close product preservation from the source image reference/edit target
 - exact label/logo/package text preservation; no invented, missing, or redesigned readable text
 - no invented readable claims
 - no distorted flame, cap, package, or product geometry
@@ -363,13 +345,13 @@ Before presenting previews, inspect generated images for:
 
 Hard reject:
 
-- Any changed label layout, logo, brand text, package text, size, claims, product shape, material, or proportions unless the user explicitly approved product re-rendering for that run.
+- Any changed label layout, logo, brand text, package text, size, claims, product shape, material, or proportions.
 - Any "almost right" product identity. Treat it as failed output, not as an upload candidate with caveats.
 
 Preview manifests must include:
 
-- `productPreservationWorkflow`: `pixel-composite`, `mask-protected-edit`, or `product-rerender-approved`
-- `sourceProductPixelsPreserved`: true/false
+- `productPreservationWorkflow`: `gpt-image-to-image`
+- `sourceImageUsedAsReference`: true/false
 - `rejectedAttempts`: count and reason summary
 - inspection notes comparing the output to the source product
 

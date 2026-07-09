@@ -31,6 +31,10 @@ Safety defaults:
 - Never delete or replace existing product media unless explicitly requested.
 - Add generated images as additional media by default.
 - Never upload generated images without first presenting previews for user approval.
+- Always use GPT image-to-image for product-photo generation: provide the original Shopify product image as the input image/reference/edit target and put the scene request in the prompt.
+- Do not crop, cut out, mask, paste, manually composite, or build the final product photo by placing product pixels into a generated background unless the user explicitly asks for that non-default workflow.
+- Never present an image with a changed label, logo, invented readable text, altered package shape, or altered product proportions as an upload candidate. Mark it failed and rerun GPT image-to-image with stricter preservation instructions.
+- If repeated GPT image-to-image attempts cannot preserve the product identity well enough, stop and explain the limitation instead of switching to manual compositing.
 - Warn before upload if label/logo/text drift could misrepresent the product.
 - Keep local manifests for every pull, generation run, and upload.
 - Use portrait `3:4` product-gallery images unless the user requests another format.
@@ -229,6 +233,10 @@ Core rule: start from pixels, not prose.
 
 Use the original Shopify product image as the image reference/edit target. The prompt should describe the new environment and product state, not recreate the product design from text.
 
+Do not use manual image construction as a workaround. In the default Stage.it workflow, do not crop, cut out, mask, paste, manually composite, or post-process the original product into a generated background. If an image-to-image result drifts, reject it and rerun GPT image-to-image with stricter preservation constraints. If repeated attempts fail, report that the model could not preserve the product identity closely enough.
+
+Product-state changes are handled by the image-to-image prompt. Opening a package, removing a lid, lighting a candle, showing wax, changing fill level, wearing apparel, or showing usage must still preserve the source product's label, logo, package text, shape, material, and proportions. If the desired state cannot be generated without changing product identity, stop and ask for a better source image or user direction.
+
 Good:
 
 ```text
@@ -314,6 +322,8 @@ Tool guidance:
 
 - Use Codex's native GPT image capability for generation and editing.
 - Treat the Shopify product image as the input image reference/edit target.
+- Do not crop, cut out, mask, paste, manually composite, or use local image processing to assemble the product photo unless the user explicitly requests that separate workflow.
+- Do not fall back to manual compositing when the image model drifts. Rerun GPT image-to-image with stricter preservation constraints or mark the attempt failed.
 - Generate separate images for distinct concepts rather than asking for many unrelated scenes in one prompt.
 - Save final generated images into the workspace. Do not leave project-bound assets only in Codex's default generated-image directory.
 - Preserve originals and save generated variants under a campaign-specific folder, such as `exports/generated-product-photos/<campaign>/<product-handle>/`.
@@ -331,6 +341,18 @@ Before presenting previews, inspect generated images for:
 - product is prominent enough for a Shopify gallery
 - scene matches the requested campaign and product context
 - aspect ratios are consistent, or user accepted a mix
+
+Hard reject:
+
+- Any changed label layout, logo, brand text, package text, size, claims, product shape, material, or proportions.
+- Any "almost right" product identity. Treat it as failed output, not as an upload candidate with caveats.
+
+Preview manifests must include:
+
+- `productPreservationWorkflow`: `gpt-image-to-image`
+- `sourceImageUsedAsReference`: true/false
+- `rejectedAttempts`: count and reason summary
+- inspection notes comparing the output to the source product
 
 Present the previews and ask which to upload. Upload only after the user approves specific images or clearly approves the full set.
 
