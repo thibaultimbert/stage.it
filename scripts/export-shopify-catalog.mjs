@@ -77,17 +77,32 @@ function normalizeStoreHost(value) {
     .toLowerCase();
 }
 
+function isMyshopifyHost(host) {
+  return /\.myshopify\.com$/i.test(host);
+}
+
 async function resolvePermanentStoreDomain(value) {
   const host = normalizeStoreHost(value);
   if (!host) return host;
 
   try {
     const response = await fetch(`https://${host}/meta.json`);
-    if (!response.ok) return host;
+    if (!response.ok) {
+      if (isMyshopifyHost(host)) return host;
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
     const metadata = await response.json();
-    return normalizeStoreHost(metadata.myshopify_domain || host);
-  } catch {
-    return host;
+    const permanentHost = normalizeStoreHost(metadata.myshopify_domain);
+    if (permanentHost) return permanentHost;
+    if (isMyshopifyHost(host)) return host;
+    throw new Error("Store metadata did not include myshopify_domain");
+  } catch (error) {
+    if (isMyshopifyHost(host)) return host;
+    throw new Error(
+      `Could not resolve the permanent Shopify domain for "${host}" from /meta.json. ` +
+        "Please provide the store's .myshopify.com domain before authenticating.",
+      { cause: error },
+    );
   }
 }
 
