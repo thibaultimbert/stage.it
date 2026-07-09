@@ -235,12 +235,12 @@ Use the original Shopify product image as the image reference/edit target. The p
 
 Do not use manual image construction as a workaround. In the default Stage.it workflow, do not crop, cut out, mask, paste, manually composite, or post-process the original product into a generated background. If an image-to-image result drifts, reject it and rerun GPT image-to-image with stricter preservation constraints. If repeated attempts fail, report that the model could not preserve the product identity closely enough.
 
-Product-state changes are handled by the image-to-image prompt. Opening a package, removing a lid, lighting a candle, showing wax, changing fill level, wearing apparel, or showing usage must still preserve the source product's label, logo, package text, shape, material, and proportions. If the desired state cannot be generated without changing product identity, stop and ask for a better source image or user direction.
+Default to the product state visible in the source image. For label/logo-sensitive products, prefer closed, lid-on, unlit, front-facing, or otherwise source-matching states unless the user explicitly asks for a state change. Opening a package, removing a lid, lighting a candle, showing wax, changing fill level, wearing apparel, or showing usage increases the risk that the model redraws the label or logo. If the desired state cannot be generated without changing product identity, stop and ask for a better source image or user direction.
 
 Good:
 
 ```text
-Use the uploaded product image as the source of truth. Put this exact product into a Tuscan Thanksgiving table scene. Preserve the product, label layout, logo placement, proportions, material, color, and single-product composition.
+Use case: product-photo-edit. Input image role: source product image / edit target. Primary request: Put this exact candle jar into a serene Mediterranean bathroom vanity scene with pale stone, eucalyptus, folded white linen, a small ceramic dish, soft morning window light, and warm neutral shadows. Preserve from the source image: one product only, amber glass jar silhouette and proportions, gold ribbed lid on, white label placement and visible label layout, logo placement and typography as much as possible, material, color, reflections, and single-product composition. Product state: closed, lid on, unlit. Avoid: no duplicate products, no redesigned label, no new logo, no invented packaging text, no warped or smeared text, no fake brand names, no watermark, no impossible product geometry.
 ```
 
 Bad:
@@ -249,7 +249,7 @@ Bad:
 Create an amber candle jar with a white label reading ITALIAN GARDEN...
 ```
 
-The bad pattern often causes invented labels, altered logos, changed package text, and wrong proportions.
+The bad pattern often causes invented labels, altered logos, changed package text, and wrong proportions. Do not transcribe or spell out visible label/logo text as something the model must write. Refer to the source image's visible label layout, logo placement, and typography instead. The source image should carry the logo/text identity.
 
 ### Contextual Scene Selection
 
@@ -280,23 +280,30 @@ When in doubt, generate three distinct preview concepts per product:
 
 For wearable products, include a human/model only when it helps the buyer understand fit, scale, or use. Preserve realism, anatomy, and product placement.
 
+For label/logo-sensitive products:
+
+- Keep the prompt compact and single-pass. Do not generate long multi-section prompts that repeatedly restate the logo or label.
+- Prefer the source-visible product state. Do not introduce open/lit/lid-beside or other state changes just to vary concepts.
+- Do not ask the model to render readable label text from prose. Preserve the visible label layout, logo placement, and typography from the input image.
+- Use one clean environment per generation. Too many props, complex lighting, or occlusion around the label increases drift.
+- If a prompt that follows these rules still changes the logo, reject it and rerun with an even simpler scene before trying more dramatic concepts.
+
 Prompt template:
 
 ```text
-Use case: product-photo-edit
-Input image role: source product image / edit target
-Primary request: Put this exact product into <scene>.
+Use case: product-photo-edit. Input image role: source product image / edit target. Primary request: Put this exact <product type> into <one concise scene>.
 
 Preserve from the source image:
 - one product only
 - product silhouette and proportions
 - material, color, and surface texture
-- label placement and visible label layout
+- visible label placement and label layout
 - logo placement and typography as much as possible
-- cap/lid color and shape, unless the user asks for a state change
+- cap/lid color and shape, if visible
+- reflections and single-product composition
 
 Product state:
-<cap on / cap removed / lit / unlit / product closed / product open>
+<same as source image; for candles prefer closed, lid on, unlit unless user asked otherwise>
 
 Scene:
 <environment, props, lighting, season, mood, camera/lens/framing>
@@ -306,10 +313,10 @@ no duplicate products, no redesigned label, no new logo, no invented packaging t
 no warped or smeared text, no fake brand names, no watermark, no impossible product geometry.
 ```
 
-State changes must be explicit:
+State changes must be explicit and user-driven. Do not add open/lit/lid-beside variants just to make concepts more diverse. If the user asks for a state change, keep the label-facing side unchanged and state that logo/label preservation is higher priority than the state change:
 
 ```text
-Remove the cap and place it beside the jar. The candle is open and lit, with cream wax visible and one small realistic flame from a centered wick.
+If possible while preserving the original visible label and logo exactly, remove the cap and place it beside the jar. The candle is open and lit, with cream wax visible and one small realistic flame from a centered wick. If this would require redesigning or changing the label/logo, keep the product closed instead.
 ```
 
 For seasonal campaigns, keep the product stable and vary only the scene. Example:
@@ -322,6 +329,9 @@ Tool guidance:
 
 - Use Codex's native GPT image capability for generation and editing.
 - Treat the Shopify product image as the input image reference/edit target.
+- Use `Input image role: source product image / edit target` verbatim in prompts.
+- Preserve the logo by reference, not by transcription: do not write visible logo text, brand text, or product label text into the prompt as text to render unless the user specifically asks for text repair.
+- Prefer compact prompts modeled after the Good example above. Long prompts with several state variants or repeated label constraints can increase logo drift.
 - Do not crop, cut out, mask, paste, manually composite, or use local image processing to assemble the product photo unless the user explicitly requests that separate workflow.
 - Do not fall back to manual compositing when the image model drifts. Rerun GPT image-to-image with stricter preservation constraints or mark the attempt failed.
 - Generate separate images for distinct concepts rather than asking for many unrelated scenes in one prompt.
@@ -335,7 +345,8 @@ Preview is mandatory. Always present generated product-photo previews to the use
 Before presenting previews, inspect generated images for:
 
 - one product only
-- acceptable label/logo fidelity
+- logo visually matches the source image; no swapped mark, redesigned symbol, missing mark, or inconsistent logo geometry
+- exact visible label layout/package text preservation; no invented, missing, or redesigned readable text
 - no invented readable claims
 - no distorted flame, cap, package, or product geometry
 - product is prominent enough for a Shopify gallery
