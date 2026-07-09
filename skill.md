@@ -18,8 +18,8 @@ After that, proceed autonomously: install or locate Shopify CLI, authenticate, p
 Default behavior:
 
 1. Ensure Shopify CLI is installed and callable.
-2. Authenticate to the store with the required Admin API scopes.
-3. Resolve the permanent `.myshopify.com` domain if the provided store URL redirects.
+2. Resolve the permanent `.myshopify.com` domain before authenticating.
+3. Authenticate to the resolved store with the required Admin API scopes.
 4. Pull product media and create a local catalog manifest.
 5. Generate new product photography with `gpt-image-2` image-to-image by passing each product's real image as the reference/edit target alongside the scene prompt.
 6. Always show generated previews and wait for approval before uploading.
@@ -99,8 +99,17 @@ Official store auth docs: https://shopify.dev/docs/api/shopify-cli/store/store-a
 Normalize the user's store address:
 
 - Strip protocol, path, query, and trailing slash.
-- Prefer the permanent `.myshopify.com` domain.
-- If `shopify store auth` reports a callback store mismatch, rerun auth with the permanent domain from the error message.
+- Resolve the permanent `.myshopify.com` domain before running `shopify store auth`.
+- Fetch `https://<normalized-store-host>/meta.json` and parse `myshopify_domain`; use that value as `<store.myshopify.com>` for all Shopify CLI commands.
+- Do not authenticate against the user-facing alias if `meta.json` returns a different `myshopify_domain`. Shopify OAuth callbacks can fail on first run with `OAuth callback store does not match the requested store` when auth starts from the alias.
+- If `meta.json` is unavailable and the normalized host already ends in `.myshopify.com`, use that host. If it is a custom domain and `meta.json` does not return `myshopify_domain`, ask the user for their `.myshopify.com` domain before authenticating.
+- If `shopify store auth` still reports a callback store mismatch, resolve `meta.json` again and rerun auth once with the returned `myshopify_domain`; only then ask the user for the permanent domain.
+
+One-shot resolver:
+
+```bash
+node -e 'const raw=process.argv[1]; const host=raw.replace(/^https?:\/\//,"").replace(/\/.*$/,"").trim(); fetch(`https://${host}/meta.json`).then(r=>r.ok?r.json():Promise.reject(new Error(`${r.status} ${r.statusText}`))).then(j=>console.log(j.myshopify_domain || host)).catch(()=>console.log(host));' "<store-url-or-host>"
+```
 
 Scopes:
 
@@ -429,16 +438,17 @@ Save an upload manifest with product ID, product handle, generated local path, S
 
 1. Ask for the store address if missing.
 2. Install or locate Shopify CLI.
-3. Authenticate with `read_products,write_products` if updates are requested.
-4. Pull catalog images and create `manifest.json`.
-5. Infer product-aware scene concepts from each product's title, image, category, materials, and requested campaign.
-6. Generate three product-photo candidates per product with `gpt-image-2`, the source product image attached, and the canonical prompt pattern.
-7. Inspect outputs, present previews, and ask which to upload.
-8. Create staged uploads for approved images.
-9. POST files to staged targets.
-10. Attach media with `productUpdate(media:)`.
-11. Verify media is `READY`.
-12. Save local and upload manifests.
+3. Resolve the permanent `.myshopify.com` domain with `/meta.json`.
+4. Authenticate with `read_products,write_products` if updates are requested.
+5. Pull catalog images and create `manifest.json`.
+6. Infer product-aware scene concepts from each product's title, image, category, materials, and requested campaign.
+7. Generate three product-photo candidates per product with `gpt-image-2`, the source product image attached, and the canonical prompt pattern.
+8. Inspect outputs, present previews, and ask which to upload.
+9. Create staged uploads for approved images.
+10. POST files to staged targets.
+11. Attach media with `productUpdate(media:)`.
+12. Verify media is `READY`.
+13. Save local and upload manifests.
 
 ## Final Response Checklist
 

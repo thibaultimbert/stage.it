@@ -33,6 +33,7 @@ Then open Codex Plugins, switch to the **Stage.it** marketplace, and install the
 ## What It Does
 
 - Authenticates with Shopify through [Shopify CLI](https://shopify.dev/docs/api/shopify-cli).
+- Resolves Shopify's permanent `myshopify_domain` before first auth so OAuth callbacks use the canonical store domain.
 - Pulls product media and writes local manifests.
 - Uses the real product image as the generation reference.
 - Produces product-photo previews in portrait `3:4`.

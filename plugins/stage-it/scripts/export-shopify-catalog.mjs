@@ -2,11 +2,11 @@ import { spawnSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const store = process.argv[2];
+const providedStore = process.argv[2];
 const outDir = process.argv[3] || "exports/shopify-catalog-images";
 const shopifyBin = process.env.SHOPIFY_BIN || "/Users/thibault/.npm-global/bin/shopify";
 
-if (!store) {
+if (!providedStore) {
   console.error("Usage: node scripts/export-shopify-catalog.mjs <store.myshopify.com> [outDir]");
   process.exit(1);
 }
@@ -69,6 +69,30 @@ function sanitize(value) {
     .slice(0, 80);
 }
 
+function normalizeStoreHost(value) {
+  return String(value || "")
+    .replace(/^https?:\/\//i, "")
+    .replace(/\/.*$/, "")
+    .trim()
+    .toLowerCase();
+}
+
+async function resolvePermanentStoreDomain(value) {
+  const host = normalizeStoreHost(value);
+  if (!host) return host;
+
+  try {
+    const response = await fetch(`https://${host}/meta.json`);
+    if (!response.ok) return host;
+    const metadata = await response.json();
+    return normalizeStoreHost(metadata.myshopify_domain || host);
+  } catch {
+    return host;
+  }
+}
+
+const store = await resolvePermanentStoreDomain(providedStore);
+
 const result = spawnSync(
   shopifyBin,
   ["store", "execute", "--store", store, "--json", "--query", query],
@@ -128,6 +152,7 @@ for (const product of products) {
 
 const manifest = {
   store,
+  providedStore: normalizeStoreHost(providedStore),
   exportedAt: new Date().toISOString(),
   productCount: products.length,
   imageCount: images.length,
