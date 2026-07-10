@@ -702,6 +702,19 @@ code {
   gap: 10px;
 }
 
+.footer-credit {
+  color: var(--soft);
+}
+
+.footer-credit a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.footer-credit a:hover {
+  color: var(--accent);
+}
+
 @media (max-width: 980px) {
   .page-shell {
     width: 100%;
