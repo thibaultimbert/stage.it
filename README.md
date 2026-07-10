@@ -36,7 +36,7 @@ Then open Codex Plugins, switch to the **Stage.it** marketplace, and install the
 - Resolves Shopify's permanent `myshopify_domain` before first auth so OAuth callbacks use the canonical store domain.
 - Pulls product media and writes local manifests.
 - Uses the real product image as the generation reference.
-- Produces product-photo previews in portrait `3:4`.
+- Produces product-photo previews in any size needed.
 - Uploads only when explicitly requested.
 - Adds generated images as additional media by default.
 
